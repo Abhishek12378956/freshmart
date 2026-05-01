@@ -66,7 +66,7 @@ export const useProductStore = create<ProductState>()((set, get) => ({
   searchTimeout: null as ReturnType<typeof setTimeout> | null,
 
   searchProducts: (query: string) => {
-    if (get().searchTimeout) clearTimeout(get().searchTimeout);
+    if (get().searchTimeout) clearTimeout(get().searchTimeout!);
 
     if (!query.trim()) {
       set({ search: { products: [], query: '', loading: false } });

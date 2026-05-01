@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/cartStore';
 import { useOrderStore } from '../../store/orderStore';
 import { useAuthStore } from '../../store/authStore';
@@ -13,7 +12,6 @@ const paymentMethods = [
 ];
 
 const CheckoutScreen: React.FC = () => {
-  const navigate = useNavigate();
   const { items, getTotalPrice, getDeliveryFee, getDiscount, clearCart } = useCartStore();
   const { placeOrder, isProcessing } = useOrderStore();
   const user = useAuthStore((s) => s.user);
