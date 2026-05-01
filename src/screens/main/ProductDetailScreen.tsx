@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useProductStore } from '../../store/productStore';
 import { useCartStore } from '../../store/cartStore';
@@ -9,14 +9,13 @@ const ProductDetailScreen: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProductStore();
-  const { addItem, items, updateQuantity } = useCartStore();
+  const { addItem } = useCartStore();
   const { toggleFavorite, isFavorite } = useFavoritesStore();
 
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'detail' | 'nutrition' | 'review'>('detail');
 
   const product = products.find(p => p.id === id);
-  const cartItem = items.find(i => i.product.id === id);
 
   if (!product) return null;
 

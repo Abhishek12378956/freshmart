@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useProductStore } from '../../store/productStore';
-import { ProductCategory } from '../../types';
 
 const categories = [
   { name: 'Fresh Fruits\n& Vegetable', color: '#53B1751A', border: '#53B1754D', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200' },

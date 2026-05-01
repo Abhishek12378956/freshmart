@@ -6,7 +6,7 @@ import { Button } from '../../components/ui';
 
 const FavoritesScreen: React.FC = () => {
   const navigate = useNavigate();
-  const { favorites, removeFavorite } = useFavoritesStore();
+  const { favorites } = useFavoritesStore();
   const { addItem } = useCartStore();
 
   const handleAddAllToCart = () => {

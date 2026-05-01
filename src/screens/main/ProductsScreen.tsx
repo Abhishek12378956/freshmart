@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useProductStore } from '../../store/productStore';
 import ProductCard from '../../components/ProductCard';
-import { ProductCategory, SortOption } from '../../types';
+import { ProductCategory } from '../../types';
 
 const ProductsScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { products, isLoading, loadProducts, filterState, setFilters } = useProductStore();
+  const { products, loadProducts } = useProductStore();
   
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const search = searchParams.get('search');

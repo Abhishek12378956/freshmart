@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useProductStore } from '../../store/productStore';
 import ProductCard from '../../components/ProductCard';
 import { ProductCardSkeleton } from '../../components/ui/Skeleton';
-import { ProductCategory } from '../../types';
 
 const HomeScreen: React.FC = () => {
   const navigate = useNavigate();

@@ -1,34 +1,40 @@
-// Enums
-export enum ProductCategory {
-  FRUITS = 'Fruits',
-  VEGETABLES = 'Vegetables',
-  DAIRY = 'Dairy',
-  BAKERY = 'Bakery',
-  MEAT = 'Meat',
-  BEVERAGES = 'Beverages',
-  SNACKS = 'Snacks',
-  FROZEN = 'Frozen',
-  ORGANIC = 'Organic',
-  PERSONAL_CARE = 'Personal Care',
-}
+// Types
+export const ProductCategory = {
+  FRUITS: 'Fruits',
+  VEGETABLES: 'Vegetables',
+  DAIRY: 'Dairy',
+  BAKERY: 'Bakery',
+  MEAT: 'Meat',
+  BEVERAGES: 'Beverages',
+  SNACKS: 'Snacks',
+  FROZEN: 'Frozen',
+  ORGANIC: 'Organic',
+  PERSONAL_CARE: 'Personal Care',
+} as const;
 
-export enum OrderStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  PREPARING = 'PREPARING',
-  OUT_FOR_DELIVERY = 'OUT_FOR_DELIVERY',
-  DELIVERED = 'DELIVERED',
-  FAILED = 'FAILED',
-  CANCELLED = 'CANCELLED',
-}
+export type ProductCategory = typeof ProductCategory[keyof typeof ProductCategory];
 
-export enum SortOption {
-  POPULAR = 'popular',
-  PRICE_LOW = 'price_low',
-  PRICE_HIGH = 'price_high',
-  NEWEST = 'newest',
-  RATING = 'rating',
-}
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PREPARING: 'PREPARING',
+  OUT_FOR_DELIVERY: 'OUT_FOR_DELIVERY',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
+
+export const SortOption = {
+  POPULAR: 'popular',
+  PRICE_LOW: 'price_low',
+  PRICE_HIGH: 'price_high',
+  NEWEST: 'newest',
+  RATING: 'rating',
+} as const;
+
+export type SortOption = typeof SortOption[keyof typeof SortOption];
 
 // Interfaces
 export interface User {
