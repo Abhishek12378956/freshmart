@@ -11,6 +11,7 @@ interface ProductState {
   search: SearchResult;
   isLoading: boolean;
   selectedProduct: Product | null;
+  searchTimeout: any;
 
   loadProducts: () => Promise<void>;
   setSelectedCategory: (category: ProductCategory | null) => void;
@@ -62,13 +63,19 @@ export const useProductStore = create<ProductState>()((set, get) => ({
     get().applyFilters();
   },
 
+  searchTimeout: null as any,
+
   searchProducts: (query: string) => {
+    if (get().searchTimeout) clearTimeout(get().searchTimeout);
+
     if (!query.trim()) {
       set({ search: { products: [], query: '', loading: false } });
       return;
     }
+
     set((state) => ({ search: { ...state.search, query, loading: true } }));
-    setTimeout(() => {
+
+    const timeout = setTimeout(() => {
       const q = query.toLowerCase();
       const results = products.filter(
         (p) =>
@@ -78,7 +85,9 @@ export const useProductStore = create<ProductState>()((set, get) => ({
           p.tags.some((t) => t.toLowerCase().includes(q))
       );
       set({ search: { products: results, query, loading: false } });
-    }, 400);
+    }, 500);
+
+    set({ searchTimeout: timeout });
   },
 
   clearSearch: () => {

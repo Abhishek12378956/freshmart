@@ -43,25 +43,25 @@ const LoginScreen: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          <Button
+          <button
             id="social-google"
-            fullWidth
             onClick={() => handleSocialLogin('google')}
-            className="bg-[#5383EC] hover:bg-[#4275E0] h-[67px] rounded-[19px] flex items-center justify-start px-8 gap-10 border-none"
+            className="w-full h-[67px] rounded-[19px] flex items-center px-8 transition-all hover:opacity-90 active:scale-95 text-white"
+            style={{ backgroundColor: '#5383EC' }}
           >
-            <div className="w-6 h-6 flex items-center justify-center font-bold text-xl">G</div>
-            <span className="text-lg font-semibold text-white">Continue with Google</span>
-          </Button>
+            <div className="w-6 h-6 flex items-center justify-center font-bold text-2xl pb-1">G</div>
+            <span className="flex-1 text-lg font-semibold text-center pr-6">Continue with Google</span>
+          </button>
 
-          <Button
+          <button
             id="social-facebook"
-            fullWidth
             onClick={() => handleSocialLogin('facebook')}
-            className="bg-[#4A66AC] hover:bg-[#3D5591] h-[67px] rounded-[19px] flex items-center justify-start px-8 gap-10 border-none"
+            className="w-full h-[67px] rounded-[19px] flex items-center px-8 transition-all hover:opacity-90 active:scale-95 text-white"
+            style={{ backgroundColor: '#4A66AC' }}
           >
-            <div className="w-6 h-6 flex items-center justify-center font-bold text-xl text-white">f</div>
-            <span className="text-lg font-semibold text-white">Continue with Facebook</span>
-          </Button>
+            <div className="w-6 h-6 flex items-center justify-center font-bold text-2xl pb-1">f</div>
+            <span className="flex-1 text-lg font-semibold text-center pr-6">Continue with Facebook</span>
+          </button>
         </div>
       </div>
     </div>

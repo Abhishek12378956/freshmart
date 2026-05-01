@@ -47,7 +47,7 @@ const ProductsScreen: React.FC = () => {
 
       {/* Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-2 gap-4 px-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-0">
           {filteredProducts.map(p => (
             <ProductCard key={p.id} product={p} />
           ))}

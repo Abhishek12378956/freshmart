@@ -105,17 +105,17 @@ const CartScreen: React.FC = () => {
 };
 
 const CheckoutSheet: React.FC<{ total: number; onClose: () => void; onPlaceOrder: () => void }> = ({ total, onClose, onPlaceOrder }) => (
-  <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
-    <div className="w-full max-w-md bg-white rounded-t-[30px] p-6 animate-slide-up">
+  <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm px-0 md:px-6">
+    <div className="w-full max-w-md bg-white rounded-t-[30px] md:rounded-[30px] p-6 md:p-8 animate-slide-up shadow-2xl">
       <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-6">
         <h2 className="text-2xl font-bold text-[#181725]">Checkout</h2>
-        <button onClick={onClose} className="text-2xl">×</button>
+        <button onClick={onClose} className="text-3xl font-light hover:text-red-500 transition-colors">×</button>
       </div>
 
       <div className="space-y-1">
         <CheckoutItem label="Delivery" value="Select Method" />
         <CheckoutItem 
-          label="Pament" 
+          label="Payment" 
           value={
             <div className="flex items-center gap-2">
               <span className="text-blue-600 font-bold">M</span>
@@ -129,13 +129,13 @@ const CheckoutSheet: React.FC<{ total: number; onClose: () => void; onPlaceOrder
 
       <div className="mt-8 text-sm text-gray-400 font-medium leading-relaxed">
         By placing an order you agree to our<br />
-        <span className="text-[#181725] font-bold">Terms</span> And <span className="text-[#181725] font-bold">Conditions</span>
+        <span className="text-[#181725] font-bold underline cursor-pointer">Terms</span> And <span className="text-[#181725] font-bold underline cursor-pointer">Conditions</span>
       </div>
 
       <Button
         fullWidth
         size="lg"
-        className="mt-8 bg-[#53B175] hover:bg-[#489963] h-[67px] text-lg font-semibold rounded-[19px] border-none"
+        className="mt-10 bg-[#53B175] hover:bg-[#489963] h-[67px] text-lg font-semibold rounded-[19px] border-none shadow-lg shadow-green-100"
         onClick={onPlaceOrder}
       >
         Place Order

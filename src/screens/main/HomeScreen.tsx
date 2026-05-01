@@ -94,12 +94,16 @@ const Section: React.FC<{ title: string; products: any[]; isLoading: boolean; on
       <h3 className="text-2xl font-bold text-[#181725]">{title}</h3>
       <button onClick={onSeeAll} className="text-green-500 font-semibold">See all</button>
     </div>
-    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible no-scrollbar pb-4 -mx-4 px-4 md:mx-0 md:px-0">
       {isLoading ? (
-        Array.from({ length: 4 }).map((_, i) => <div key={i} className="shrink-0 w-44"><ProductCardSkeleton /></div>)
+        Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="shrink-0 w-44 md:w-full">
+            <ProductCardSkeleton />
+          </div>
+        ))
       ) : (
         products.map(p => (
-          <div key={p.id} className="shrink-0 w-44">
+          <div key={p.id} className="shrink-0 w-44 md:w-full">
             <ProductCard product={p} />
           </div>
         ))
