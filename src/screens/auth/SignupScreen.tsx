@@ -17,43 +17,54 @@ const SignupScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-dvh bg-white flex flex-col px-6">
-      <div className="pt-6">
-        <button 
-          onClick={() => navigate('/login')}
-          className="w-10 h-10 flex items-center justify-start"
-        >
-          <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-      </div>
+    <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center md:py-10">
+      <div className="w-full min-h-screen md:min-h-0 md:max-w-[400px] md:h-[850px] md:rounded-[40px] md:shadow-2xl md:border-8 md:border-gray-800 bg-white flex flex-col overflow-hidden relative">
+        
+        {/* Hero Image */}
+        <div 
+          className="h-56 bg-cover bg-center shrink-0"
+          style={{ backgroundImage: 'url("/sign-in.png")' }}
+        />
 
-      <div className="mt-10">
-        <h1 className="text-2xl font-bold text-[#181725] mb-8">
-          Enter your mobile number
-        </h1>
-
-        <div className="space-y-1">
-          <label className="text-sm font-semibold text-gray-400">Mobile Number</label>
-          <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-3">
-            <span className="text-2xl">🇧🇩</span>
-            <span className="text-lg text-[#181725] font-medium">+880</span>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="flex-1 text-lg text-[#181725] font-medium outline-none bg-transparent"
-              placeholder=""
-              autoFocus
-            />
+        <div className="px-6 flex flex-col flex-1">
+          <div className="pt-6">
+            <button 
+              onClick={() => navigate('/login')}
+              className="w-10 h-10 flex items-center justify-start"
+            >
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
           </div>
-          {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
-        </div>
-      </div>
 
-      <div className="flex-1 flex items-center justify-end pb-12 pr-2">
-        <FAB onClick={handleNext} />
+        <div className="mt-10">
+          <h1 className="text-2xl font-bold text-[#181725] mb-8">
+            Enter your mobile number
+          </h1>
+
+          <div className="space-y-1">
+            <label className="text-sm font-semibold text-gray-400">Mobile Number</label>
+            <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-3">
+              <span className="text-2xl">🇧🇩</span>
+              <span className="text-lg text-[#181725] font-medium">+880</span>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="flex-1 text-lg text-[#181725] font-medium outline-none bg-transparent"
+                placeholder=""
+                autoFocus
+              />
+            </div>
+            {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+          </div>
+        </div>
+
+        <div className="flex-1 flex items-center justify-end pb-12 pr-2">
+          <FAB onClick={handleNext} />
+        </div>
+        </div>
       </div>
     </div>
   );
