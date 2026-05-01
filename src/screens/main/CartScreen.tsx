@@ -1,0 +1,159 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '../../store/cartStore';
+import { Button } from '../../components/ui';
+
+const CartScreen: React.FC = () => {
+  const navigate = useNavigate();
+  const { items, removeItem, updateQuantity, getTotalPrice } = useCartStore();
+
+  const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false);
+
+  if (items.length === 0) {
+    return (
+      <div className="min-h-[70dvh] flex flex-col items-center justify-center p-8 text-center">
+        <div className="w-64 h-64 bg-gray-50 rounded-full flex items-center justify-center mb-8">
+          <span className="text-8xl">🛒</span>
+        </div>
+        <h2 className="text-2xl font-bold text-[#181725] mb-2">Your cart is empty!</h2>
+        <p className="text-gray-400 mb-8">Looks like you haven't added anything to your cart yet.</p>
+        <Button onClick={() => navigate('/home')} className="bg-[#53B175] rounded-[19px] px-10">Shop Now</Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pb-32 px-6">
+      <h1 className="text-xl font-bold text-[#181725] text-center pt-6 mb-8">My Cart</h1>
+
+      <div className="divide-y divide-gray-100">
+        {items.map((item) => (
+          <div key={item.product.id} className="py-6 flex items-center gap-4">
+            <img 
+              src={item.product.image} 
+              alt={item.product.name} 
+              className="w-20 h-20 object-contain"
+            />
+            
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between mb-1">
+                <h3 className="text-base font-bold text-[#181725] truncate">
+                  {item.product.name}
+                </h3>
+                <button 
+                  onClick={() => removeItem(item.product.id)}
+                  className="text-gray-400 hover:text-red-500"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-sm text-gray-400 font-medium mb-3">
+                {item.product.unit}, Price
+              </p>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => updateQuantity(item.product.id, Math.max(1, item.quantity - 1))}
+                    className="w-10 h-10 border border-gray-200 rounded-xl flex items-center justify-center text-xl text-gray-400"
+                  >
+                    -
+                  </button>
+                  <span className="w-8 text-center text-base font-bold text-[#181725]">
+                    {item.quantity}
+                  </span>
+                  <button 
+                    onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                    className="w-10 h-10 border border-gray-200 rounded-xl flex items-center justify-center text-xl text-green-500"
+                  >
+                    +
+                  </button>
+                </div>
+                <span className="text-lg font-bold text-[#181725]">
+                  ${(item.product.price * item.quantity).toFixed(2)}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Floating Checkout Button */}
+      <div className="fixed bottom-24 left-0 right-0 px-6 pb-6 bg-gradient-to-t from-white via-white to-transparent pt-4">
+        <button 
+          onClick={() => setIsCheckoutOpen(true)}
+          className="w-full bg-[#53B175] text-white font-bold py-5 px-8 rounded-[19px] text-lg flex items-center justify-between hover:bg-[#489963] shadow-lg transition-all active:scale-95"
+        >
+          <span className="flex-1 text-center pl-10">Go to Checkout</span>
+          <span className="bg-[#489963] px-3 py-1 rounded-md text-xs font-bold">
+            ${getTotalPrice().toFixed(2)}
+          </span>
+        </button>
+      </div>
+
+      {isCheckoutOpen && (
+        <CheckoutSheet 
+          total={getTotalPrice()} 
+          onClose={() => setIsCheckoutOpen(false)} 
+          onPlaceOrder={() => navigate('/order-result')}
+        />
+      )}
+    </div>
+  );
+};
+
+const CheckoutSheet: React.FC<{ total: number; onClose: () => void; onPlaceOrder: () => void }> = ({ total, onClose, onPlaceOrder }) => (
+  <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
+    <div className="w-full max-w-md bg-white rounded-t-[30px] p-6 animate-slide-up">
+      <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-6">
+        <h2 className="text-2xl font-bold text-[#181725]">Checkout</h2>
+        <button onClick={onClose} className="text-2xl">×</button>
+      </div>
+
+      <div className="space-y-1">
+        <CheckoutItem label="Delivery" value="Select Method" />
+        <CheckoutItem 
+          label="Pament" 
+          value={
+            <div className="flex items-center gap-2">
+              <span className="text-blue-600 font-bold">M</span>
+              <span className="text-red-500 font-bold">C</span>
+            </div>
+          } 
+        />
+        <CheckoutItem label="Promo Code" value="Pick discount" />
+        <CheckoutItem label="Total Cost" value={`$${total.toFixed(2)}`} />
+      </div>
+
+      <div className="mt-8 text-sm text-gray-400 font-medium leading-relaxed">
+        By placing an order you agree to our<br />
+        <span className="text-[#181725] font-bold">Terms</span> And <span className="text-[#181725] font-bold">Conditions</span>
+      </div>
+
+      <Button
+        fullWidth
+        size="lg"
+        className="mt-8 bg-[#53B175] hover:bg-[#489963] h-[67px] text-lg font-semibold rounded-[19px] border-none"
+        onClick={onPlaceOrder}
+      >
+        Place Order
+      </Button>
+    </div>
+  </div>
+);
+
+const CheckoutItem: React.FC<{ label: string; value: React.ReactNode }> = ({ label, value }) => (
+  <div className="flex items-center justify-between py-5 border-b border-gray-50">
+    <span className="text-lg font-semibold text-gray-400">{label}</span>
+    <div className="flex items-center gap-3">
+      <span className="text-base font-bold text-[#181725]">{value}</span>
+      <svg className="w-5 h-5 text-[#181725]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </div>
+  </div>
+);
+
+export default CartScreen;
