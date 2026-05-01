@@ -138,3 +138,5 @@ export const Input: React.FC<InputProps> = ({ label, error, leftIcon, rightIcon,
     </div>
   );
 };
+export * from './Modal';
+export * from './OrderResultModal';

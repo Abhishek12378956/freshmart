@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProductStore } from '../../store/productStore';
 import ProductCard from '../../components/ProductCard';
+import type { Product } from '../../types';
 import { ProductCardSkeleton } from '../../components/ui/Skeleton';
 
 const HomeScreen: React.FC = () => {
@@ -88,7 +89,7 @@ const HomeScreen: React.FC = () => {
   );
 };
 
-const Section: React.FC<{ title: string; products: any[]; isLoading: boolean; onSeeAll: () => void }> = ({ title, products, isLoading, onSeeAll }) => (
+const Section: React.FC<{ title: string; products: Product[]; isLoading: boolean; onSeeAll: () => void }> = ({ title, products, isLoading, onSeeAll }) => (
   <div className="px-4">
     <div className="flex items-center justify-between mb-5">
       <h3 className="text-2xl font-bold text-[#181725]">{title}</h3>

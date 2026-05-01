@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/cartStore';
 import { useOrderStore } from '../../store/orderStore';
 import { useAuthStore } from '../../store/authStore';
-import { Button, Input } from '../../components/ui';
+import { Button, Input, OrderResultModal } from '../../components/ui';
 import type { Address } from '../../types';
 
 const paymentMethods = [
@@ -28,6 +28,11 @@ const CheckoutScreen: React.FC = () => {
     zip: user?.address?.zip ?? '',
   });
 
+  const [modalState, setModalState] = useState<{ isOpen: boolean; type: 'success' | 'error' }>({
+    isOpen: false,
+    type: 'success',
+  });
+
   const subtotal = getTotalPrice();
   const delivery = getDeliveryFee();
   const discount = getDiscount();
@@ -44,8 +49,16 @@ const CheckoutScreen: React.FC = () => {
       isDefault: false,
     };
     await placeOrder(items, deliveryAddress, paymentMethod, total);
-    clearCart();
-    navigate('/order-result', { replace: true });
+    
+    // Check global order status from store (we could also return it from placeOrder)
+    const lastStatus = useOrderStore.getState().lastOrderStatus;
+    
+    if (lastStatus === 'FAILED') {
+      setModalState({ isOpen: true, type: 'error' });
+    } else {
+      clearCart();
+      setModalState({ isOpen: true, type: 'success' });
+    }
   };
 
   const steps = ['address', 'payment', 'review'];
@@ -201,6 +214,16 @@ const CheckoutScreen: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <OrderResultModal 
+        isOpen={modalState.isOpen}
+        type={modalState.type}
+        onClose={() => setModalState({ ...modalState, isOpen: false })}
+        onRetry={() => {
+          setModalState({ ...modalState, isOpen: false });
+          handlePlaceOrder();
+        }}
+      />
     </div>
   );
 };

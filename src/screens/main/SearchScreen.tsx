@@ -1,13 +1,58 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ProductCategory } from '../../types';
 
-const categories = [
-  { name: 'Fresh Fruits\n& Vegetable', color: '#53B1751A', border: '#53B1754D', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200' },
-  { name: 'Cooking Oil\n& Ghee', color: '#F8A44C1A', border: '#F8A44C4D', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=200' },
-  { name: 'Meat & Fish', color: '#F7A5931A', border: '#F7A5934D', image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&q=80&w=200' },
-  { name: 'Bakery & Snacks', color: '#D3B0E01A', border: '#D3B0E04D', image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=200' },
-  { name: 'Dairy & Eggs', color: '#FDE5981A', border: '#FDE5984D', image: 'https://images.unsplash.com/photo-1550583724-125581ae278b?auto=format&fit=crop&q=80&w=200' },
-  { name: 'Beverages', color: '#B7DFF51A', border: '#B7DFF54D', image: 'https://images.unsplash.com/photo-1527960669566-f882ba85a4c6?auto=format&fit=crop&q=80&w=200' },
+interface SearchCategory {
+  name: string;
+  category: ProductCategory;
+  color: string;
+  border: string;
+  image: string;
+}
+
+const categories: SearchCategory[] = [
+  {
+    name: 'Fresh Fruits\n& Vegetable',
+    category: ProductCategory.FRUITS,
+    color: '#53B1751A',
+    border: '#53B1754D',
+    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200',
+  },
+  {
+    name: 'Cooking Oil\n& Ghee',
+    category: ProductCategory.ORGANIC,
+    color: '#F8A44C1A',
+    border: '#F8A44C4D',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?auto=format&fit=crop&q=80&w=200',
+  },
+  {
+    name: 'Meat & Fish',
+    category: ProductCategory.MEAT,
+    color: '#F7A5931A',
+    border: '#F7A5934D',
+    image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&q=80&w=200',
+  },
+  {
+    name: 'Bakery & Snacks',
+    category: ProductCategory.BAKERY,
+    color: '#D3B0E01A',
+    border: '#D3B0E04D',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=200',
+  },
+  {
+    name: 'Dairy & Eggs',
+    category: ProductCategory.DAIRY,
+    color: '#FDE5981A',
+    border: '#FDE5984D',
+    image: 'https://images.unsplash.com/photo-1550583724-125581ae278b?auto=format&fit=crop&q=80&w=200',
+  },
+  {
+    name: 'Beverages',
+    category: ProductCategory.BEVERAGES,
+    color: '#B7DFF51A',
+    border: '#B7DFF54D',
+    image: 'https://images.unsplash.com/photo-1527960669566-f882ba85a4c6?auto=format&fit=crop&q=80&w=200',
+  },
 ];
 
 const SearchScreen: React.FC = () => {
@@ -17,7 +62,7 @@ const SearchScreen: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/products?search=${searchQuery}`);
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
@@ -43,11 +88,11 @@ const SearchScreen: React.FC = () => {
 
       {/* Category Grid */}
       <div className="grid grid-cols-2 gap-4">
-        {categories.map((cat, i) => (
-          <div 
-            key={i}
-            onClick={() => navigate('/products')}
-            className="rounded-3xl p-4 flex flex-col items-center text-center cursor-pointer transform transition-transform active:scale-95 h-48 border"
+        {categories.map((cat) => (
+          <div
+            key={cat.category}
+            onClick={() => navigate(`/products?category=${encodeURIComponent(cat.category)}`)}
+            className="rounded-3xl p-4 flex flex-col items-center text-center cursor-pointer transform transition-transform active:scale-95 hover:scale-[1.02] h-48 border"
             style={{ backgroundColor: cat.color, borderColor: cat.border }}
           >
             <img src={cat.image} alt={cat.name} className="h-24 w-full object-contain mb-3" />

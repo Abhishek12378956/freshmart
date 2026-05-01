@@ -27,7 +27,7 @@ const OrderResultScreen: React.FC = () => {
           Oops! Order Failed
         </h1>
         <p className="text-gray-400 text-base font-medium mb-12">
-          Something went tembly wrong.
+          Something went terribly wrong.
         </p>
 
         <div className="w-full space-y-4">
@@ -72,7 +72,7 @@ const OrderResultScreen: React.FC = () => {
         Your Order has been accepted
       </h1>
       <p className="text-gray-400 text-base font-medium mb-12 px-8">
-        Your items has been placcd and is on its way to being processed
+        Your items have been placed and are on their way to being processed
       </p>
 
       <div className="w-full space-y-4">

@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import BottomNav from './BottomNav';
 import DesktopSidebar from './DesktopSidebar';
+import { useOrderStore } from '../../store/orderStore';
+import { OrderResultModal } from '../ui';
 
 const noHeaderRoutes = ['/', '/onboarding', '/login', '/signup', '/otp', '/location', '/order-result'];
 const noNavRoutes = ['/', '/onboarding', '/login', '/signup', '/otp', '/location', '/order-result'];
@@ -23,6 +25,8 @@ const AppLayout: React.FC = () => {
   const showNav = !noNavRoutes.includes(pathname);
   const isProductDetail = pathname.startsWith('/product/');
   const title = headerTitles[pathname];
+
+  const { lastOrderStatus, clearCurrentOrder } = useOrderStore();
 
   // For onboarding/splash/auth we don't want the max-w container
   const useWideLayout = noNavRoutes.includes(pathname);
@@ -64,6 +68,12 @@ const AppLayout: React.FC = () => {
           </div>
         )}
       </div>
+
+      <OrderResultModal
+        isOpen={lastOrderStatus !== null}
+        onClose={clearCurrentOrder}
+        type={lastOrderStatus === 'FAILED' ? 'error' : 'success'}
+      />
     </div>
   );
 };

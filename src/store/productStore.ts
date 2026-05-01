@@ -11,7 +11,7 @@ interface ProductState {
   search: SearchResult;
   isLoading: boolean;
   selectedProduct: Product | null;
-  searchTimeout: any;
+  searchTimeout: ReturnType<typeof setTimeout> | null;
 
   loadProducts: () => Promise<void>;
   setSelectedCategory: (category: ProductCategory | null) => void;
@@ -63,7 +63,7 @@ export const useProductStore = create<ProductState>()((set, get) => ({
     get().applyFilters();
   },
 
-  searchTimeout: null as any,
+  searchTimeout: null as ReturnType<typeof setTimeout> | null,
 
   searchProducts: (query: string) => {
     if (get().searchTimeout) clearTimeout(get().searchTimeout);
