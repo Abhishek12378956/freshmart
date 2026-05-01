@@ -29,7 +29,7 @@ const FavoritesScreen: React.FC = () => {
 
   return (
     <div className="pb-32 px-6">
-      <h1 className="text-xl font-bold text-[#181725] text-center pt-6 mb-8">Favorurite</h1>
+      <h1 className="text-xl font-bold text-[#181725] text-center pt-6 mb-8">Favourite</h1>
 
       <div className="divide-y divide-gray-100">
         {favorites.map((product) => (

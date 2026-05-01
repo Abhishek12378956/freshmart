@@ -20,7 +20,7 @@ const EmailSignupScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center md:py-10">
-      <div className="w-full min-h-screen md:min-h-0 md:max-w-[400px] md:h-[850px] md:rounded-[40px] md:shadow-2xl md:border-8 md:border-gray-800 bg-white flex flex-col overflow-hidden relative">
+      <div className="w-full min-h-screen md:min-h-0 md:max-w-[400px] md:h-[850px] md:rounded-[40px] md:shadow-2xl md:border-8 md:border-gray-800 bg-white flex flex-col overflow-y-auto relative">
         
         {/* Hero Image */}
         <div 
@@ -104,7 +104,7 @@ const EmailSignupScreen: React.FC = () => {
               onClick={() => navigate('/email-login')}
               className="text-green-500 hover:underline"
             >
-              Signup
+              Sign in
             </button>
           </p>
         </div>

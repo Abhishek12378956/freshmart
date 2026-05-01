@@ -29,11 +29,49 @@ const LocationScreen: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center mt-4 flex-1 overflow-y-auto hide-scrollbar">
-          <img 
-            src="https://images.unsplash.com/photo-1526367790999-0150786486a9?auto=format&fit=crop&q=80&w=600" 
-            alt="Location" 
-            className="w-48 h-48 object-cover rounded-3xl mb-8 shrink-0"
-          />
+          {/* Google Maps-style location illustration — matches Figma */}
+          <div className="w-52 h-52 mb-8 shrink-0 flex items-center justify-center">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-lg">
+              {/* Map background */}
+              <rect width="200" height="200" rx="20" fill="#E8EAF0"/>
+
+              {/* Map road grid */}
+              <rect x="0" y="88" width="200" height="22" fill="#FFFFFF" opacity="0.9"/>
+              <rect x="88" y="0" width="22" height="200" fill="#FFFFFF" opacity="0.9"/>
+
+              {/* Green area (park) */}
+              <rect x="30" y="30" width="50" height="50" rx="8" fill="#A8D5A2" opacity="0.8"/>
+              {/* Beige area (building block) */}
+              <rect x="120" y="30" width="50" height="50" rx="8" fill="#F5CBA7" opacity="0.8"/>
+              {/* Blue area (water/block) */}
+              <rect x="30" y="118" width="50" height="50" rx="8" fill="#AED6F1" opacity="0.8"/>
+              {/* Yellow area (block) */}
+              <rect x="120" y="118" width="50" height="50" rx="8" fill="#F9E79F" opacity="0.8"/>
+
+              {/* Road lines */}
+              <line x1="0" y1="99" x2="200" y2="99" stroke="#D5D8DC" strokeWidth="1" strokeDasharray="6 4"/>
+              <line x1="99" y1="0" x2="99" y2="200" stroke="#D5D8DC" strokeWidth="1" strokeDasharray="6 4"/>
+
+              {/* Location pin shadow */}
+              <ellipse cx="99" cy="132" rx="14" ry="5" fill="#000000" opacity="0.12"/>
+
+              {/* Location pin body */}
+              <path d="M99 55 C81 55 67 69 67 87 C67 108 99 130 99 130 C99 130 131 108 131 87 C131 69 117 55 99 55Z" fill="#5B8DEF"/>
+              {/* Pin highlight */}
+              <path d="M99 55 C81 55 67 69 67 87 C67 108 99 130 99 130 C99 130 131 108 131 87 C131 69 117 55 99 55Z" fill="url(#pinGrad)"/>
+
+              {/* Pin inner circle */}
+              <circle cx="99" cy="87" r="14" fill="white"/>
+              <circle cx="99" cy="87" r="9" fill="#5B8DEF"/>
+
+              <defs>
+                <radialGradient id="pinGrad" cx="40%" cy="30%" r="70%">
+                  <stop offset="0%" stopColor="#7FB3FF"/>
+                  <stop offset="100%" stopColor="#3D6FD4"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
           <h1 className="text-2xl font-bold text-[#181725] mb-3">
             Select Your Location
           </h1>
